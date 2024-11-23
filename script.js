@@ -1,6 +1,6 @@
 window.onload = () => {
     // Crear tarjetas
-    // crearTarjetas(filosofos)
+     crearTarjetas(filosofos)
 
     // Crear handlers para los botones de control
     let botonCrearTarjeta = document.querySelector('.create-btn');
