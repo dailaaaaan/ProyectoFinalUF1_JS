@@ -9,9 +9,15 @@ window.onload = () => {
     // Añadir eventos a los botones de ordenación
     let botonOrdenarAZ = document.querySelector('.sort-btn:nth-of-type(1)');
     let botonOrdenarZA = document.querySelector('.sort-btn:nth-of-type(2)');
+    botonOrdenarAZ.addEventListener('click', ordenarNombreAZ);
+    botonOrdenarZA.addEventListener('click', ordenarNombreZA);
 
-    botonOrdenarAZ.addEventListener('click', ordenarNombreAZ); // Ordenar A-Z
-    botonOrdenarZA.addEventListener('click', ordenarNombreZA); // Ordenar Z-A
+    // Añadir eventos para guardar y cargar tarjetas
+    let botonGuardar = document.querySelector('.save-btn');
+    let botonCargar = document.querySelector('.load-btn');
+
+    botonGuardar.addEventListener('click', guardarTarjetas); // Guardar tarjetas
+    botonCargar.addEventListener('click', cargarTarjetas); // Cargar tarjetas
 };
 
 
@@ -183,13 +189,28 @@ function parsearTarjetas(tarjetas){
     return filosofosParseados;
 }
 
-function guardarTarjetas(){
+function guardarTarjetas() {
+    // Obtenemos todas las tarjetas del DOM
     let tarjetas = Array.from(document.querySelectorAll('.card'));
-    localStorage.setItem('tarjetas',JSON.stringify(parsearTarjetas(tarjetas)));
+    
+    // Parseamos las tarjetas a un formato que podamos guardar osea un array
+    localStorage.setItem('tarjetas', JSON.stringify(parsearTarjetas(tarjetas)));
 }
 
 
 function cargarTarjetas() {
+    // Verificar si hay tarjetas guardadas en el Storag
+    let tarjetasGuardadas = localStorage.getItem('tarjetas');
+
+    if (tarjetasGuardadas) {
+        // Si hay tarjetas guardadas, parsearlas desde JSON
+        tarjetasGuardadas = JSON.parse(tarjetasGuardadas);
+
+        // Crear las tarjetas en el DUM
+        crearTarjetas(tarjetasGuardadas);
+    } else {
+        console.log('No hay tarjetas guardadas crack.');
+    }
 }
 
 const filosofos = [
