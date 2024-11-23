@@ -5,6 +5,13 @@ window.onload = () => {
     // Crear handler para el formulario
     let formulario = document.querySelector('.create-card-form form');
     formulario.addEventListener('submit', crearNuevaTarjeta);
+
+    // Añadir eventos a los botones de ordenación
+    let botonOrdenarAZ = document.querySelector('.sort-btn:nth-of-type(1)');
+    let botonOrdenarZA = document.querySelector('.sort-btn:nth-of-type(2)');
+
+    botonOrdenarAZ.addEventListener('click', ordenarNombreAZ); // Ordenar A-Z
+    botonOrdenarZA.addEventListener('click', ordenarNombreZA); // Ordenar Z-A
 };
 
 
@@ -97,16 +104,32 @@ function ordenarNombreAZ() {
     });
 
     // Eliminar totes les targetes de l'array 'tarjeta'
-    // Completar codi
+    let contenedor = document.querySelector('.cards-container');
+    contenedor.innerHTML = '';
 
     // Afegir 'tarjetasOrdenadas' al contenidor de cards
-    let contenedor = document.querySelector('.cards-container');
-    // Completar codi
+    tarjetasOrdenadas.forEach(tarjeta => {
+        contenedor.appendChild(tarjeta);
+    });
 }
 
 function ordenarNombreZA() {
-}
+    let tarjetas = Array.from(document.querySelectorAll('.card'));
+    let tarjetasOrdenadas = tarjetas.sort((tarjetaA, tarjetaB) => {
+        let nombre1 = tarjetaA.querySelector('h3').innerHTML;
+        let nombre2 = tarjetaB.querySelector('h3').innerHTML;
+        return nombre2.localeCompare(nombre1);
+    });
 
+    // Eliminar todas las tarjetas actuales
+    let contenedor = document.querySelector('.cards-container');
+    contenedor.innerHTML = '';
+
+    // Añadir las tarjetas ordenadas
+    tarjetasOrdenadas.forEach(tarjeta => {
+        contenedor.appendChild(tarjeta);
+    });
+}
 function crearNuevaTarjeta(event) {
     event.preventDefault(); // Evita que el formulario recargue la página
 
