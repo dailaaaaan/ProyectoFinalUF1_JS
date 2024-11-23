@@ -28,6 +28,14 @@ function crearTarjetas(filosofos) {
         titulo.classList.add('nombre');
         titulo.innerHTML = filosofo.nombre;
         info.append(titulo);
+
+        // Añadimos botón de eliminación
+        let botonEliminar = document.createElement('div');
+        botonEliminar.classList.add('botonEliminar');
+        botonEliminar.innerHTML = '&#x2716;'; // Carácter aspa
+        botonEliminar.addEventListener('click', eliminarTarjeta); // Asocia el evento click
+        tarjeta.append(botonEliminar);
+
         // Creamos fila de información (info-row)
         let filaInfo = document.createElement('div');
         filaInfo.classList.add('info-row');
@@ -63,7 +71,9 @@ function crearTarjetas(filosofos) {
     })
 }
 
-function eliminarTarjeta() {
+function eliminarTarjeta(event) {
+    let tarjeta = event.target.parentElement; // La tarjeta es el padre del botón
+    tarjeta.remove(); // Elimina la tarjeta del DOM
 }
 
 function ordenarNombreAZ() {
